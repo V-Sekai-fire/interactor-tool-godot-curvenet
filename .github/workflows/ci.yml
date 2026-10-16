@@ -13,12 +13,12 @@ permissions:
 
 jobs:
   validate:
-    # macos-14 (Apple Silicon) covers everything: Lean's lake build, the
+    # macos-15 (Apple Silicon) covers everything: Lean's lake build, the
     # SPIR-V round-trip via slangc, the slang_validate harness, the
     # axpy_validate FFI equivalence proof, AND the Slang -> Metal AOT
     # compile chain that needs xcrun metal. macos-13 Intel runners lack
-    # GPU paravirtualization, so we stay on macos-14 / macos-latest.
-    runs-on: macos-14
+    # GPU paravirtualization, so we stay on macos-15.
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v5
 
@@ -165,7 +165,7 @@ jobs:
           lake exe  axpy_validate
 
       - name: Install safetensors (Python ↔ Lean round-trip vectors)
-        # `python3 -m pip` instead of bare `pip` — on macos-14 runners
+        # `python3 -m pip` instead of bare `pip` — on macos-15 runners
         # they can resolve to different interpreters; the test scripts
         # invoke `python3` explicitly.
         run: python3 -m pip install --user --break-system-packages safetensors numpy
